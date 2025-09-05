@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hercules Capital - Leader nell'algorithmic trading, quant trading e strategie crypto. Esperti in arbitraggio e gestione patrimoniale quantitativa.">
+    <title>Hercules Capital - Algorithmic & Quantitative Trading</title>
+    
+    <style>
+        /* Reset e variabili CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #d4af37;
+            --text-gray: #666666;
+            --light-gray: #f5f5f5;
+            --transition: all 0.3s ease;
+        }
+
+        /* Typography */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 400;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 1000px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-quote {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-style: italic;
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+
+        .hero-author {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-gray);
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+            border-radius: 2px;
+            transition: var(--transition);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animated background elements */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            opacity: 0.03;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            background: var(--accent-color);
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            background: var(--primary-color);
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 7s;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 5%;
+            background: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            padding: 3rem;
+            background: var(--light-gray);
+            border-radius: 8px;
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1.5rem;
+            fill: var(--accent-color);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 5%;
+            background: linear-gradient(to bottom, var(--light-gray), var(--secondary-color));
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            opacity: 0;
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            opacity: 0;
+            animation: fadeInRight 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: var(--secondary-color);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            margin-top: 0.5rem;
+        }
+
+        /* Technology Section */
+        .technology {
+            padding: 5rem 5%;
+            background: var(--secondary-color);
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .tech-item {
+            padding: 1rem 2rem;
+            background: var(--light-gray);
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .tech-item:hover {
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .contact h2 {
+            color: var(--secondary-color);
+            margin-bottom: 3rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-item {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .contact-item:nth-child(1) { animation-delay: 0.1s; }
+        .contact-item:nth-child(2) { animation-delay: 0.2s; }
+        .contact-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .contact-item h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            background: #0a0a0a;
+            color: var(--text-gray);
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -100px) rotate(90deg); }
+            50% { transform: translate(-100px, -200px) rotate(180deg); }
+            75% { transform: translate(-200px, 100px) rotate(270deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                height: 100vh;
+                background: var(--secondary-color);
+                flex-direction: column;
+                padding: 5rem 2rem;
+                width: 250px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--secondary-color);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--light-gray);
+            border-top-color: var(--accent-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Hercules <span>Capital</span></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Servizi</a></li>
+                <li><a href="#about">Chi Siamo</a></li>
+                <li><a href="#technology">Tecnologia</a></li>
+                <li><a href="#contact">Contatti</a></li>
+            </ul>
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-quote">"Nei mercati, la forza non sta nel prevedere il futuro, ma nell'adattarsi rapidamente al presente."</p>
+            <p class="hero-author">— Principi di Trading Quantitativo</p>
+            <h1>Hercules Capital</h1>
+            <p class="hero-subtitle">Leader nell'Algorithmic Trading e Gestione Quantitativa</p>
+            <a href="#contact" class="cta-button">Inizia il tuo percorso</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>I Nostri Servizi</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    </svg>
+                    <h3>Algorithmic Trading</h3>
+                    <p>Sviluppiamo algoritmi proprietari che sfruttano inefficienze di mercato con velocità e precisione superiori, garantendo esecuzioni ottimali e gestione del rischio avanzata.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+                    </svg>
+                    <h3>Quant Trading</h3>
+                    <p>Modelli quantitativi sofisticati basati su analisi statistica avanzata e machine learning per identificare opportunità di trading sistematiche e ripetibili.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M21.16 7.84L12 2L2.84 7.84C2.3 8.14 2 8.71 2 9.33V14.67C2 15.29 2.3 15.86 2.84 16.16L12 22L21.16 16.16C21.7 15.86 22 15.29 22 14.67V9.33C22 8.71 21.7 8.14 21.16 7.84Z"/>
+                    </svg>
+                    <h3>Strategie Crypto</h3>
+                    <p>Strategie specializzate per il mercato delle criptovalute, includendo trading ad alta frequenza, market making e gestione del rischio specifico per asset digitali.</p>
+                </div>
+                <div class="service-card">
+                    <svg class="service-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    <h3>Arbitraggio</h3>
+                    <p>Identificazione e sfruttamento di discrepanze di prezzo tra mercati diversi con sistemi automatizzati che garantiscono profitti a basso rischio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Chi Siamo</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Hercules Capital è una società di gestione patrimoniale quantitativa all'avanguardia, specializzata nell'applicazione di tecnologie avanzate e metodologie scientifiche ai mercati finanziari.</p>
+                    <p>Con sede a Lugano, nel cuore della Svizzera finanziaria, combiniamo l'eccellenza tecnologica con una profonda comprensione dei mercati globali per offrire soluzioni di investimento innovative e performanti.</p>
+                    <p>Il nostro team multidisciplinare di quants, sviluppatori e trader lavora costantemente per perfezionare strategie che generano alpha consistente in diverse condizioni di mercato.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <div class="stat-number">500M+</div>
+                        <div class="stat-label">CHF in gestione</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Trading automatizzato</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Strategie attive</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Anni di esperienza</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology" id="technology">
+        <div class="container">
+            <h2>La Nostra Tecnologia</h2>
+            <p style="text-align: center; color: var(--text-gray); margin-bottom: 2rem;">
+                Utilizziamo le tecnologie più avanzate per mantenere un vantaggio competitivo nei mercati
+            </p>
+            <div class="tech-list">
+                <div class="tech-item" style="animation-delay: 0.1s;">Machine Learning</div>
+                <div class="tech-item" style="animation-delay: 0.2s;">Deep Learning</div>
+                <div class="tech-item" style="animation-delay: 0.3s;">Natural Language Processing</div>
+                <div class="tech-item" style="animation-delay: 0.4s;">High-Frequency Trading</div>
+                <div class="tech-item" style="animation-delay: 0.5s;">Blockchain Analytics</div>
+                <div class="tech-item" style="animation-delay: 0.6s;">Quantum Computing</div>
+                <div class="tech-item" style="animation-delay: 0.7s;">Big Data Analytics</div>
+                <div class="tech-item" style="animation-delay: 0.8s;">Risk Management AI</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contattaci</h2>
+            <p style="margin-bottom: 3rem;">Inizia il tuo percorso verso l'eccellenza nel trading quantitativo</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>Email</h4>
+                    <p><a href="mailto:info@herculescapital.ch">info@herculescapital.ch</a></p>
+                </div>
+                <div class="contact-item">
+                    <h4>Indirizzo</h4>
+                    <p>Via Antonio Ciseri 3<br>6900 Lugano<br>Svizzera</p>
+                </div>
+                <div class="contact-item">
+                    <h4>Sito Web</h4>
+                    <p><a href="https://herculescapital.ch">herculescapital.ch</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Hercules Capital. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 500);
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.service-card, .stat-box, .tech-item, .contact-item').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Dynamic year in footer
+        const currentYear = new Date().getFullYear();
+        document.querySelector('footer p').innerHTML = `&copy; ${currentYear} Hercules Capital. Tutti i diritti riservati.`;
+    </script>
+</body>
+</html>
